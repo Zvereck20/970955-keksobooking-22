@@ -59,6 +59,8 @@ let locationObject = {
 };
 
 //  Generated object
+
+/*
 let generatedObject = {
   authorObject: {
     avatar: () => {
@@ -90,3 +92,4 @@ let generatedObject = {
     },
   },
 };
+*/
