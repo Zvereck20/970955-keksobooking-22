@@ -1,82 +1,103 @@
+/* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
-/* eslint-disable no-undef */
+import {
+  CHECK
+} from './data.js';
 
-// Функция возвращает целое число
+import {
+  getRandomnInteger
+} from './util.js';
 
-let returnRandomnInteger = (minNumber, maxNumber) => {
-  return Math.round(Math.random() * (maxNumber - minNumber) + minNumber);
-};
+console.log(getRandomnInteger(1, 1));
 
-// Функция, возвращающая случайное число с плавающей точкой
+// /* eslint-disable no-console */
+// /* eslint-disable no-unused-vars */
+// /* eslint-disable no-undef */
 
-let returnRandomFractional = (minNumber, maxNumber, anotherNumber = 1) => {
-  let randomNumber = Math.random() * (maxNumber - minNumber) + minNumber;
-  return randomNumber.toFixed(anotherNumber);
-};
+// // Функция возвращает целое число
 
-const TYPES_RANDOM = [
-  'palace',
-  'flat',
-  'house',
-  'bungalow',
-];
+// let getRandomnInteger = (minNumber, maxNumber) => {
+//   return Math.round(Math.random() * (maxNumber - minNumber) + minNumber);
+// };
 
-const CHECK_IN_OUT_TYMES = [
-  '12:00',
-  '13:00',
-  '14:00',
-];
 
-const FEATURES_ARRAY = [
-  'wifi',
-  'dishwasher',
-  'parking',
-  'washer',
-  'elevator',
-  'conditioner',
-];
+// // Функция, возвращающая случайное число с плавающей точкой
 
-const PHOTOS_ARRAY = [
-  'http://o0.github.io/assets/images/tokyo/hotel1.jpg',
-  'http://o0.github.io/assets/images/tokyo/hotel2.jpg',
-  'http://o0.github.io/assets/images/tokyo/hotel3.jpg',
-];
+// let getRandomFractional = (minNumber, maxNumber, anotherNumber = 1) => {
+//   let randomNumber = Math.random() * (maxNumber - minNumber) + minNumber;
+//   return randomNumber.toFixed(anotherNumber);
+// };
 
-let returnRandomArrayElement = (elements) => {
-  return elements[_.random(0, elements.length - 1)];
-};
+// // Создание случайного массива из другого массива
 
-const GET_OBJECT = () => {
-  return {
-    author: {
-      avatar: `img/avatars/user/0${returnRandomnInteger(1, 8)}.png`,
-    },
-    offer: {
-      title: 'Лучший выбор',
-      address: `x: ${returnRandomFractional(35.65000, 35.70000, 5)} y: ${returnRandomFractional(139.70000, 139.80000, 5)}`,
-      price: returnRandomnInteger(1, 100),
-      type: returnRandomArrayElement(TYPES_RANDOM),
-      rooms: returnRandomnInteger(1, 5),
-      quests: returnRandomnInteger(1, 10),
-      checkin: returnRandomArrayElement(CHECK_IN_OUT_TYMES),
-      checkout: returnRandomArrayElement(CHECK_IN_OUT_TYMES),
-      features: FEATURES_ARRAY.slice(returnRandomnInteger(0, 5)),
-      description: 'Чистота, уют и комфорт',
-      photos: PHOTOS_ARRAY.slice(returnRandomnInteger(0, 2)),
-    },
-    location: {
-      x: returnRandomFractional(35.65000, 35.70000, 5),
-      y: returnRandomFractional(139.70000, 139.80000, 5),
-    },
-  };
-};
+// const getRandomArrayElement = (array) => {
+//   return array[_.random(0, array.length - 1)];
+// };
 
-const CREATE_ARRAY = () => {
-  let newArray = [];
-  for (let i = 0; i < 10; i++) {
-    newArray.push(GET_OBJECT());
-  }
-  return newArray;
-};
+// const BUILDING_RANDOM = [
+//   'palace',
+//   'flat',
+//   'house',
+//   'bungalow',
+// ];
 
-const CHECK = CREATE_ARRAY();
+// const CHECK_IN_OUT_TIMES = [
+//   '12:00',
+//   '13:00',
+//   '14:00',
+// ];
+
+// const FEATURES = [
+//   'wifi',
+//   'dishwasher',
+//   'parking',
+//   'washer',
+//   'elevator',
+//   'conditioner',
+// ];
+
+// const PHOTOS = [
+//   'http://o0.github.io/assets/images/tokyo/hotel1.jpg',
+//   'http://o0.github.io/assets/images/tokyo/hotel2.jpg',
+//   'http://o0.github.io/assets/images/tokyo/hotel3.jpg',
+// ];
+
+// const LOCATION_X = getRandomFractional(35.65000, 35.70000, 5);
+// const LOCATION_Y = getRandomFractional(139.70000, 139.80000, 5);
+
+// const CREATE_OBJECT = () => {
+//   return {
+//     author: {
+//       avatar: `img/avatars/user/0${getRandomnInteger(1, 8)}.png`,
+//     },
+//     offer: {
+//       title: 'Лучший выбор',
+//       address: `x: ${LOCATION_X} y: ${LOCATION_Y}`,
+//       price: getRandomnInteger(1, 100),
+//       type: getRandomArrayElement(BUILDING_RANDOM),
+//       rooms: getRandomnInteger(1, 5),
+//       quests: getRandomnInteger(1, 10),
+//       checkin: getRandomArrayElement(CHECK_IN_OUT_TIMES),
+//       checkout: getRandomArrayElement(CHECK_IN_OUT_TIMES),
+//       features: FEATURES.slice(getRandomnInteger(0, 5)),
+//       description: 'Чистота, уют и комфорт',
+//       photos: PHOTOS.slice(getRandomnInteger(0, 2)),
+//     },
+//     location: {
+//       x: LOCATION_X,
+//       y: LOCATION_Y,
+//     },
+//   };
+// };
+
+// const GET_ARRAY = () => {
+//   let newArray = [];
+//   for (let i = 0; i < 10; i++) {
+//     newArray.push(CREATE_OBJECT());
+//   }
+//   return newArray;
+// };
+
+// const CHECK = GET_ARRAY();
+
+// console.log(CHECK);
