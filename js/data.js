@@ -1,23 +1,17 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
-import {CREATE_OBJECT} from './create-object.js'
-
-// Создание случайного массива из другого массива
-
-const getRandomArrayElement = (array) => {
-  return array[_.random(0, array.length - 1)];
-};
+import {createObject} from './create-object.js'
 
 // Создание случайных массивов
 
-const GET_ARRAY = () => {
+const getArray = () => {
   let newArray = [];
   for (let i = 0; i < 10; i++) {
-    newArray.push(CREATE_OBJECT());
+    newArray.push(createObject());
   }
   return newArray;
 };
 
-const CHECK = GET_ARRAY();
+const CHECK = getArray();
 
-export {CHECK, getRandomArrayElement};
+export {CHECK};
