@@ -25,8 +25,16 @@ const getRandomArrayElement = (array) => {
   return array[_.random(0, array.length - 1)];
 };
 
+const makeElement = (tagName, className) => {
+  const ELEMENT = document.createElement(tagName);
+  ELEMENT.classList.add('popup__feature');
+  ELEMENT.classList.add(className);
+  return ELEMENT;
+};
+
 export {
   getRandomnInteger,
   getRandomFractional,
-  getRandomArrayElement
+  getRandomArrayElement,
+  makeElement
 };
