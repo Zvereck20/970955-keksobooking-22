@@ -3,8 +3,7 @@
 import {
   getRandomnInteger,
   getRandomFractional,
-  getRandomArrayElement,
-  makeElement
+  getRandomArrayElement
 } from './utils.js';
 
 const BUILDING_RANDOM = [
@@ -19,13 +18,6 @@ const CHECK_IN_OUT_TIMES = [
   '13:00',
   '14:00',
 ];
-
-const WIFI = makeElement('li', 'popup__feature--wifi');
-const DISHWASHER = makeElement('li', 'popup__feature--dishwasher');
-const PARKING = makeElement('li', 'popup__feature--parking');
-const WASHER = makeElement('li', 'popup__feature--washer');
-const ELEVATOR = makeElement('li', 'popup__feature--elevator');
-const CONDITIONER = makeElement('li', 'popup__feature--conditioner');
 
 const FEATURES = [
   'wifi',
@@ -62,7 +54,7 @@ const createObject = () => {
         checkout: getRandomArrayElement(CHECK_IN_OUT_TIMES),
         features: FEATURES.slice(getRandomnInteger(0, 5)),
         description: 'Чистота, уют и комфорт',
-        photos: PHOTOS.slice(getRandomnInteger(0, 5)),
+        photos: PHOTOS.slice(getRandomnInteger(0, 2)),
       },
       location: {
         x: LOCATION_X,
@@ -75,6 +67,5 @@ const createObject = () => {
 };
 
 export {
-  createObject,
-  PHOTOS
+  createObject
 };

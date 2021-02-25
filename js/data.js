@@ -6,7 +6,7 @@ import {
 
 // Создание случайных массивов
 
-const getArray = () => new Array(1)
+const getArray = () => new Array(10)
   .fill(null)
   .map(() => createObject());
 
