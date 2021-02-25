@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 // Функция возвращает целое число
 
@@ -18,7 +19,15 @@ let getRandomFractional = (minNumber, maxNumber, anotherNumber = 1) => {
   return randomNumber.toFixed(anotherNumber);
 };
 
+// Функция создающаю случайный массив из другого массива
+
+const getRandomArrayElement = (array) => {
+  return array[_.random(0, array.length - 1)];
+};
+
+
 export {
   getRandomnInteger,
-  getRandomFractional
+  getRandomFractional,
+  getRandomArrayElement
 };
