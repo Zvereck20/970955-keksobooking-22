@@ -1,5 +1,3 @@
-/* eslint-disable no-undef */
-/* eslint-disable no-unused-vars */
 // Функция возвращает целое число
 
 let getRandomnInteger = (minNumber, maxNumber) => {
