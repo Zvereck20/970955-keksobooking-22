@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {
   getArray
 } from './data.js';
@@ -39,7 +40,14 @@ const createPopupElement = (element) => {
   POPUP_ELEMENT.querySelector('.popup__photos').innerHTML = createPhotoList(element.offer.photos);
   POPUP_ELEMENT.querySelector('.popup__avatar').src = element.author.avatar;
 
-  MAP_PLACE.appendChild(POPUP_ELEMENT);
+  return POPUP_ELEMENT;
 };
 
-createPopupElement(createPopup[0]);
+
+
+
+
+export {
+  createPopupElement,
+  createPopup
+};

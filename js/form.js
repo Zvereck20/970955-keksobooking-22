@@ -1,48 +1,47 @@
+/* eslint-disable no-cond-assign */
 // Изменение значений полей "Тип жилья" и "Цена за ночь"
 
 const TYPE_OF_HOUSING = document.querySelector('#type');
+const APPARTMENTS = ['bungalow', 'flat', 'house', 'palace'];
+const PRICE = [0, 1000, 5000, 10000];
 
-TYPE_OF_HOUSING.addEventListener('change', (evt) => {
+const changeHousing = (type, price, evt) => {
   const TYPE_OF_PRICE = document.querySelector('#price');
 
-  if (evt.target.value === 'bungalow') {
-    TYPE_OF_PRICE.placeholder = 0;
-    TYPE_OF_PRICE.min = 0;
-  } else if (evt.target.value === 'flat') {
-    TYPE_OF_PRICE.placeholder = 1000;
-    TYPE_OF_PRICE.min = 1000;
-  } else if (evt.target.value === 'house') {
-    TYPE_OF_PRICE.placeholder = 5000;
-    TYPE_OF_PRICE.min = 5000;
-  } else if (evt.target.value === 'palace') {
-    TYPE_OF_PRICE.placeholder = 10000;
-    TYPE_OF_PRICE.min = 10000;
+  for (let i = 0; i <= PRICE.length - 1; i++) {
+    if (evt.target.value === type[i]) {
+      TYPE_OF_PRICE.placeholder = price[i];
+      TYPE_OF_PRICE.min = price[i];
+    }
   }
+};
+
+TYPE_OF_HOUSING.addEventListener('change', (evt) => {
+  changeHousing(APPARTMENTS, PRICE, evt);
 });
 
 // Изменение значений полей "Время заезда" и "Время выезда"
 
 const TIME_OF_IN = document.querySelector('#timein');
 const TIME_OF_OUT = document.querySelector('#timeout');
+const NUMBER = [0, 1, 2];
+
+
+const onSelectTimeChange = (timeValue, verificationTime, evt) => {
+  if (evt.target.id = timeValue) {
+
+    for (let i = 0; i <= NUMBER.length - 1; i++) {
+      if (timeValue.selectedIndex === NUMBER[i]) {
+        verificationTime.selectedIndex = NUMBER[i];
+      }
+    }
+  }
+};
 
 TIME_OF_IN.addEventListener('change', (evt) => {
-
-  if (evt.target.value === '12:00') {
-    TIME_OF_OUT.selectedIndex = 0;
-  } else if (evt.target.value === '13:00') {
-    TIME_OF_OUT.selectedIndex = 1;
-  } else if (evt.target.value === '14:00') {
-    TIME_OF_OUT.selectedIndex = 2;
-  }
+  onSelectTimeChange(TIME_OF_IN, TIME_OF_OUT, evt);
 });
 
 TIME_OF_OUT.addEventListener('change', (evt) => {
-
-  if (evt.target.value === '12:00') {
-    TIME_OF_IN.selectedIndex = 0;
-  } else if (evt.target.value === '13:00') {
-    TIME_OF_IN.selectedIndex = 1;
-  } else if (evt.target.value === '14:00') {
-    TIME_OF_IN.selectedIndex = 2;
-  }
+  onSelectTimeChange(TIME_OF_OUT, TIME_OF_IN, evt);
 });

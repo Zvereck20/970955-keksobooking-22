@@ -1,0 +1,119 @@
+/* eslint-disable indent */
+/* global L:readonly */
+// import {
+//   getRandomFractional
+// } from './utils.js';
+
+import {
+  createPopupElement
+} from './generating-markup.js';
+import {
+  getArray
+} from './data.js';
+
+const ADDRRES_OF_COORDINATES = document.querySelector('#address');
+let LOUD_MAP = false;
+
+// Создаем и отрисовываем карту
+
+const createMap = L.map('map-canvas')
+  .on('load', () => {
+    LOUD_MAP = true;
+    ADDRRES_OF_COORDINATES.value = 'x: 35.68950 y: 139.69171';
+  })
+  .setView({
+    lat: 35.6895000,
+    lng: 139.6917100,
+  }, 10);
+
+L.tileLayer(
+  'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  },
+).addTo(createMap);
+
+// Добавляем иконку главного маркера
+
+const createMainIcon = L.icon({
+  iconUrl: './img/main-pin.svg',
+  iconSize: [52, 52],
+  iconAnchor: [26, 52],
+});
+
+// Создаем главный маркер
+
+const createMainMarker = L.marker({
+  lat: 35.6895000,
+  lng: 139.6917100,
+}, {
+  draggable: true,
+  icon: createMainIcon,
+})
+
+createMainMarker.addTo(createMap);
+
+// Добавляем обработчик события на главный мракер для отображения координат
+
+createMainMarker.on('moveend', (evt) => {
+  const COORDINATES = evt.target.getLatLng();
+  ADDRRES_OF_COORDINATES.value = `x: ${COORDINATES.lat.toFixed(5)} y: ${COORDINATES.lng.toFixed(5)}`;
+});
+
+// // Создаем метки объявлений
+
+// const MARKERS = [{
+//     title: 'Бунгало',
+//     lat: getRandomFractional(35.65000, 35.70000, 5),
+//     lng: getRandomFractional(139.70000, 139.80000, 5),
+//   },
+//   {
+//     title: 'Квартира',
+//     lat: getRandomFractional(35.65000, 35.70000, 5),
+//     lng: getRandomFractional(139.70000, 139.80000, 5),
+//   }, {
+//     title: 'Дом',
+//     lat: getRandomFractional(35.65000, 35.70000, 5),
+//     lng: getRandomFractional(139.70000, 139.80000, 5),
+//   },
+//   {
+//     title: 'Дворец',
+//     lat: getRandomFractional(35.65000, 35.70000, 5),
+//     lng: getRandomFractional(139.70000, 139.80000, 5),
+//   },
+// ];
+
+// Показывает маркер и балун одного случайно сгенерированного обьявления
+
+const MIF = getArray();
+
+MIF.forEach((element) => {
+  const lat = element.location.x;
+  const lng = element.location.y;
+
+  const createSecondaryMarkers = L.icon({
+    iconUrl: './img/pin.svg',
+    iconSize: [40, 40],
+    iconAnchor: [20, 40],
+  });
+
+  const secondaryMarkers = L.marker({
+    lat,
+    lng,
+  }, {
+    createSecondaryMarkers,
+  },
+  );
+
+  secondaryMarkers
+    .addTo(createMap)
+    .bindPopup(
+      createPopupElement(MIF[0]),
+      {
+        keepInView: true,
+      },
+    );
+});
+
+export {
+  LOUD_MAP
+};
