@@ -33,14 +33,14 @@ const PHOTOS = [
   'http://o0.github.io/assets/images/tokyo/hotel3.jpg',
 ];
 
-const LOCATION_X = getRandomFractional(35.65000, 35.70000, 5);
-const LOCATION_Y = getRandomFractional(139.70000, 139.80000, 5);
 
 const createObject = () => {
+  const LOCATION_X = getRandomFractional(35.65000, 35.70000, 5);
+  const LOCATION_Y = getRandomFractional(139.70000, 139.80000, 5);
   try {
     return {
       author: {
-        avatar: `img/avatars/user/0${getRandomnInteger(1, 8)}.png`,
+        avatar: `img/avatars/user0${getRandomnInteger(1, 8)}.png`,
       },
       offer: {
         title: 'Лучший выбор',

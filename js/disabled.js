@@ -19,7 +19,7 @@ const addClass = (object, teg) => {
   return object;
 }
 
-if (LOUD_MAP === false) {
+if (!LOUD_MAP) {
   addClass(FORM, 'fieldset');
   addClass(MAP, 'select');
 }

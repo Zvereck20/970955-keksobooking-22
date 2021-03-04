@@ -1,9 +1,5 @@
 /* eslint-disable indent */
 /* global L:readonly */
-// import {
-//   getRandomFractional
-// } from './utils.js';
-
 import {
   createPopupElement
 } from './generating-markup.js';
@@ -59,34 +55,11 @@ createMainMarker.on('moveend', (evt) => {
   ADDRRES_OF_COORDINATES.value = `x: ${COORDINATES.lat.toFixed(5)} y: ${COORDINATES.lng.toFixed(5)}`;
 });
 
-// // Создаем метки объявлений
-
-// const MARKERS = [{
-//     title: 'Бунгало',
-//     lat: getRandomFractional(35.65000, 35.70000, 5),
-//     lng: getRandomFractional(139.70000, 139.80000, 5),
-//   },
-//   {
-//     title: 'Квартира',
-//     lat: getRandomFractional(35.65000, 35.70000, 5),
-//     lng: getRandomFractional(139.70000, 139.80000, 5),
-//   }, {
-//     title: 'Дом',
-//     lat: getRandomFractional(35.65000, 35.70000, 5),
-//     lng: getRandomFractional(139.70000, 139.80000, 5),
-//   },
-//   {
-//     title: 'Дворец',
-//     lat: getRandomFractional(35.65000, 35.70000, 5),
-//     lng: getRandomFractional(139.70000, 139.80000, 5),
-//   },
-// ];
-
 // Показывает маркер и балун одного случайно сгенерированного обьявления
 
-const MIF = getArray();
+const MARKERS = getArray();
 
-MIF.forEach((element) => {
+MARKERS.forEach((element) => {
   const lat = element.location.x;
   const lng = element.location.y;
 
@@ -107,7 +80,7 @@ MIF.forEach((element) => {
   secondaryMarkers
     .addTo(createMap)
     .bindPopup(
-      createPopupElement(MIF[0]),
+      createPopupElement(element),
       {
         keepInView: true,
       },

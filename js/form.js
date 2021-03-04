@@ -24,17 +24,11 @@ TYPE_OF_HOUSING.addEventListener('change', (evt) => {
 
 const TIME_OF_IN = document.querySelector('#timein');
 const TIME_OF_OUT = document.querySelector('#timeout');
-const NUMBER = [0, 1, 2];
-
 
 const onSelectTimeChange = (timeValue, verificationTime, evt) => {
   if (evt.target.id = timeValue) {
-
-    for (let i = 0; i <= NUMBER.length - 1; i++) {
-      if (timeValue.selectedIndex === NUMBER[i]) {
-        verificationTime.selectedIndex = NUMBER[i];
-      }
-    }
+    const VALUE = timeValue.selectedIndex;
+    verificationTime.selectedIndex = VALUE;
   }
 };
 
