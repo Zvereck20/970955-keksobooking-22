@@ -25,17 +25,51 @@ TYPE_OF_HOUSING.addEventListener('change', (evt) => {
 const TIME_OF_IN = document.querySelector('#timein');
 const TIME_OF_OUT = document.querySelector('#timeout');
 
-const onSelectTimeChange = (timeValue, verificationTime, evt) => {
-  if (evt.target.id = timeValue) {
-    const VALUE = timeValue.selectedIndex;
-    verificationTime.selectedIndex = VALUE;
+const onSelectTimeChange = (evt) => {
+  evt.target.id === 'timein' ?
+    (TIME_OF_OUT.selectedIndex = TIME_OF_IN.selectedIndex) :
+    (TIME_OF_IN.selectedIndex = TIME_OF_OUT.selectedIndex);
+};
+
+TIME_OF_IN.addEventListener('change', onSelectTimeChange);
+TIME_OF_OUT.addEventListener('change', onSelectTimeChange);
+
+// Изменение значений полей "Количество комнат" и "Количество мест"
+
+const NUMBER_OF_ROOMS = document.querySelector('#room_number');
+const NUMBER_OF_SEATS = document.querySelector('#capacity');
+
+const lem = (bem) => {
+  for (let i = 0; i <= bem.length - 1; i++) {
+    bem[i].setAttribute('disabled', '');
+  }
+  return bem
+};
+
+const lol = (evt, idValue, secondValue) => {
+  if (evt.target.id === 'room_number') {
+    const rem = idValue.selectedIndex;
+    const bem = secondValue.options;
+    lem(bem);
+    if (rem === 0) {
+      secondValue.selectedIndex = 2;
+      bem[2].removeAttribute('disabled');
+    } else if (rem === 1) {
+      secondValue.selectedIndex = 1;
+      bem[1].removeAttribute('disabled');
+      bem[2].removeAttribute('disabled');
+    } else if (rem === 2) {
+      secondValue.selectedIndex = 0;
+      bem[0].removeAttribute('disabled');
+      bem[1].removeAttribute('disabled');
+      bem[2].removeAttribute('disabled');
+    } else if (rem === 3) {
+      secondValue.selectedIndex = 3;
+      bem[3].removeAttribute('disabled');
+    }
   }
 };
 
-TIME_OF_IN.addEventListener('change', (evt) => {
-  onSelectTimeChange(TIME_OF_IN, TIME_OF_OUT, evt);
-});
-
-TIME_OF_OUT.addEventListener('change', (evt) => {
-  onSelectTimeChange(TIME_OF_OUT, TIME_OF_IN, evt);
+NUMBER_OF_ROOMS.addEventListener('change', (evt) => {
+  lol(evt, NUMBER_OF_ROOMS, NUMBER_OF_SEATS);
 });
