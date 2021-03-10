@@ -39,37 +39,37 @@ TIME_OF_OUT.addEventListener('change', onSelectTimeChange);
 const NUMBER_OF_ROOMS = document.querySelector('#room_number');
 const NUMBER_OF_SEATS = document.querySelector('#capacity');
 
-const lem = (bem) => {
-  for (let i = 0; i <= bem.length - 1; i++) {
-    bem[i].setAttribute('disabled', '');
+const getAttribute = (object) => {
+  for (let i = 0; i <= object.length - 1; i++) {
+    object[i].setAttribute('disabled', '');
   }
-  return bem
+  return object
 };
 
-const lol = (evt, idValue, secondValue) => {
+const checkingValidity = (evt, idValue, secondValue) => {
   if (evt.target.id === 'room_number') {
-    const rem = idValue.selectedIndex;
-    const bem = secondValue.options;
-    lem(bem);
-    if (rem === 0) {
+    const INDEX_VALUE = idValue.selectedIndex;
+    const OPTIONS_VALUE = secondValue.options;
+    getAttribute(OPTIONS_VALUE);
+    if (INDEX_VALUE === 0) {
       secondValue.selectedIndex = 2;
-      bem[2].removeAttribute('disabled');
-    } else if (rem === 1) {
+      OPTIONS_VALUE[2].removeAttribute('disabled');
+    } else if (INDEX_VALUE === 1) {
       secondValue.selectedIndex = 1;
-      bem[1].removeAttribute('disabled');
-      bem[2].removeAttribute('disabled');
-    } else if (rem === 2) {
+      OPTIONS_VALUE[1].removeAttribute('disabled');
+      OPTIONS_VALUE[2].removeAttribute('disabled');
+    } else if (INDEX_VALUE === 2) {
       secondValue.selectedIndex = 0;
-      bem[0].removeAttribute('disabled');
-      bem[1].removeAttribute('disabled');
-      bem[2].removeAttribute('disabled');
-    } else if (rem === 3) {
+      OPTIONS_VALUE[0].removeAttribute('disabled');
+      OPTIONS_VALUE[1].removeAttribute('disabled');
+      OPTIONS_VALUE[2].removeAttribute('disabled');
+    } else if (INDEX_VALUE === 3) {
       secondValue.selectedIndex = 3;
-      bem[3].removeAttribute('disabled');
+      OPTIONS_VALUE[3].removeAttribute('disabled');
     }
   }
 };
 
 NUMBER_OF_ROOMS.addEventListener('change', (evt) => {
-  lol(evt, NUMBER_OF_ROOMS, NUMBER_OF_SEATS);
+  checkingValidity(evt, NUMBER_OF_ROOMS, NUMBER_OF_SEATS);
 });

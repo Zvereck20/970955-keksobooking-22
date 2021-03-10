@@ -54,7 +54,6 @@ createMainMarker.on('moveend', (evt) => {
   const COORDINATES = evt.target.getLatLng();
   ADDRRES_OF_COORDINATES.value = `${COORDINATES.lat.toFixed(5)}, ${COORDINATES.lng.toFixed(5)}`;
   ADDRRES_OF_COORDINATES.setAttribute('value', `${COORDINATES.lat.toFixed(5)}, ${COORDINATES.lng.toFixed(5)}`);
-  // console.log(ADDRRES_OF_COORDINATES);
 });
 
 // Показывает маркер и балун одного случайно сгенерированного обьявления
