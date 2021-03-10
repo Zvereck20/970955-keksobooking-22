@@ -25,17 +25,51 @@ TYPE_OF_HOUSING.addEventListener('change', (evt) => {
 const TIME_OF_IN = document.querySelector('#timein');
 const TIME_OF_OUT = document.querySelector('#timeout');
 
-const onSelectTimeChange = (timeValue, verificationTime, evt) => {
-  if (evt.target.id = timeValue) {
-    const VALUE = timeValue.selectedIndex;
-    verificationTime.selectedIndex = VALUE;
+const onSelectTimeChange = (evt) => {
+  evt.target.id === 'timein' ?
+    (TIME_OF_OUT.selectedIndex = TIME_OF_IN.selectedIndex) :
+    (TIME_OF_IN.selectedIndex = TIME_OF_OUT.selectedIndex);
+};
+
+TIME_OF_IN.addEventListener('change', onSelectTimeChange);
+TIME_OF_OUT.addEventListener('change', onSelectTimeChange);
+
+// Изменение значений полей "Количество комнат" и "Количество мест"
+
+const NUMBER_OF_ROOMS = document.querySelector('#room_number');
+const NUMBER_OF_SEATS = document.querySelector('#capacity');
+
+const getAttribute = (object) => {
+  for (let i = 0; i <= object.length - 1; i++) {
+    object[i].setAttribute('disabled', '');
+  }
+  return object
+};
+
+const checkingValidity = (evt, idValue, secondValue) => {
+  if (evt.target.id === 'room_number') {
+    const INDEX_VALUE = idValue.selectedIndex;
+    const OPTIONS_VALUE = secondValue.options;
+    getAttribute(OPTIONS_VALUE);
+    if (INDEX_VALUE === 0) {
+      secondValue.selectedIndex = 2;
+      OPTIONS_VALUE[2].removeAttribute('disabled');
+    } else if (INDEX_VALUE === 1) {
+      secondValue.selectedIndex = 1;
+      OPTIONS_VALUE[1].removeAttribute('disabled');
+      OPTIONS_VALUE[2].removeAttribute('disabled');
+    } else if (INDEX_VALUE === 2) {
+      secondValue.selectedIndex = 0;
+      OPTIONS_VALUE[0].removeAttribute('disabled');
+      OPTIONS_VALUE[1].removeAttribute('disabled');
+      OPTIONS_VALUE[2].removeAttribute('disabled');
+    } else if (INDEX_VALUE === 3) {
+      secondValue.selectedIndex = 3;
+      OPTIONS_VALUE[3].removeAttribute('disabled');
+    }
   }
 };
 
-TIME_OF_IN.addEventListener('change', (evt) => {
-  onSelectTimeChange(TIME_OF_IN, TIME_OF_OUT, evt);
-});
-
-TIME_OF_OUT.addEventListener('change', (evt) => {
-  onSelectTimeChange(TIME_OF_OUT, TIME_OF_IN, evt);
+NUMBER_OF_ROOMS.addEventListener('change', (evt) => {
+  checkingValidity(evt, NUMBER_OF_ROOMS, NUMBER_OF_SEATS);
 });

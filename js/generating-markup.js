@@ -24,11 +24,9 @@ const createPhotoList = (photos) => {
 
 
 const checkElements = (element, data, process) => {
-  if (data.length === 0) {
-    element.remove();
-  } else {
-    element.innerHTML = process(data);
-  }
+  data.length === 0 ?
+    (element.remove()) :
+    (element.innerHTML);
 };
 
 // Создать объект

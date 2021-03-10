@@ -15,11 +15,11 @@ let LOUD_MAP = false;
 const createMap = L.map('map-canvas')
   .on('load', () => {
     LOUD_MAP = true;
-    ADDRRES_OF_COORDINATES.value = 'x: 35.68950 y: 139.69171';
+    ADDRRES_OF_COORDINATES.value = '35.68950, 139.69171';
   })
   .setView({
-    lat: 35.6895000,
-    lng: 139.6917100,
+    lat: 35.68950,
+    lng: 139.69171,
   }, 10);
 
 L.tileLayer(
@@ -39,8 +39,8 @@ const createMainIcon = L.icon({
 // Создаем главный маркер
 
 const createMainMarker = L.marker({
-  lat: 35.6895000,
-  lng: 139.6917100,
+  lat: 35.68950,
+  lng: 139.69171,
 }, {
   draggable: true,
   icon: createMainIcon,
@@ -52,7 +52,8 @@ createMainMarker.addTo(createMap);
 
 createMainMarker.on('moveend', (evt) => {
   const COORDINATES = evt.target.getLatLng();
-  ADDRRES_OF_COORDINATES.value = `x: ${COORDINATES.lat.toFixed(5)} y: ${COORDINATES.lng.toFixed(5)}`;
+  ADDRRES_OF_COORDINATES.value = `${COORDINATES.lat.toFixed(5)}, ${COORDINATES.lng.toFixed(5)}`;
+  ADDRRES_OF_COORDINATES.setAttribute('value', `${COORDINATES.lat.toFixed(5)}, ${COORDINATES.lng.toFixed(5)}`);
 });
 
 // Показывает маркер и балун одного случайно сгенерированного обьявления
