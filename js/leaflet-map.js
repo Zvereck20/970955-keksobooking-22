@@ -4,8 +4,8 @@ import {
   createPopupElement
 } from './generating-markup.js';
 import {
-  getArray
-} from './data.js';
+  getData
+} from './api.js'
 
 const ADDRRES_OF_COORDINATES = document.querySelector('#address');
 let LOUD_MAP = false;
@@ -58,36 +58,37 @@ createMainMarker.on('moveend', (evt) => {
 
 // Показывает маркер и балун одного случайно сгенерированного обьявления
 
-const MARKERS = getArray();
 
-MARKERS.forEach((element) => {
-  const lat = element.location.x;
-  const lng = element.location.y;
+getData((MARKERS) => {
+  MARKERS.forEach((element) => {
+    const lat = element.location.lat;
+    const lng = element.location.lng;
 
-  const createSecondaryMarkers = L.icon({
-    iconUrl: './img/pin.svg',
-    iconSize: [40, 40],
-    iconAnchor: [20, 40],
+    const createSecondaryMarkers = L.icon({
+      iconUrl: './img/pin.svg',
+      iconSize: [40, 40],
+      iconAnchor: [20, 40],
+    });
+
+    const secondaryMarkers = L.marker({
+      lat,
+      lng,
+    }, {
+      createSecondaryMarkers,
+    });
+
+    secondaryMarkers
+      .addTo(createMap)
+      .bindPopup(
+        createPopupElement(element), {
+          keepInView: true,
+        },
+      );
   });
-
-  const secondaryMarkers = L.marker({
-    lat,
-    lng,
-  }, {
-    createSecondaryMarkers,
-  },
-  );
-
-  secondaryMarkers
-    .addTo(createMap)
-    .bindPopup(
-      createPopupElement(element),
-      {
-        keepInView: true,
-      },
-    );
-});
+})
 
 export {
-  LOUD_MAP
+  LOUD_MAP,
+  ADDRRES_OF_COORDINATES,
+  createMainMarker
 };
