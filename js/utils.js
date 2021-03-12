@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 
 // Функция возвращает целое число
@@ -51,8 +52,5 @@ const loadingError = (message) => {
 };
 
 export {
-  getRandomnInteger,
-  getRandomFractional,
-  getRandomArrayElement,
   loadingError
 };

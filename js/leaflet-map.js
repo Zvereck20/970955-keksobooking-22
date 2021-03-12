@@ -1,5 +1,6 @@
 /* eslint-disable indent */
 /* global L:readonly */
+
 import {
   createPopupElement
 } from './generating-markup.js';
@@ -89,6 +90,6 @@ getData((MARKERS) => {
 
 export {
   LOUD_MAP,
-  ADDRRES_OF_COORDINATES,
+  // ADDRRES_OF_COORDINATES,
   createMainMarker
 };

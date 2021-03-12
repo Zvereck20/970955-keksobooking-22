@@ -1,5 +1,4 @@
-/* eslint-disable no-cond-assign */
-/* eslint-disable indent */
+// /* eslint-disable indent */
 // /* global L:readonly */
 import {
   sendData
@@ -103,7 +102,7 @@ const cleanPage = () => {
   DESCRRIPTION.value = '';
 
   // ADDRRES_OF_COORDINATES.value = '35.68950, 139.69171';
-  // createMainMarker.latLang({
+  // createMainMarker.setlatLang({
   //   lat: 35.68950,
   //   lng: 139.69171,
   // });
@@ -115,7 +114,13 @@ const onFail = () => {
   const ERROR_ELEMENT = ERROR.cloneNode(true);
   document.body.append(ERROR_ELEMENT);
 
+  const ERROR_BUTTON = ERROR_ELEMENT.querySelector('.error__button');
+
+  ERROR_BUTTON.addEventListener('click', () => {
+    document.body.removeChild(ERROR_ELEMENT);
+  });
 };
+
 
 const sentSuccessfully = () => {
   const SUCCESS = document.querySelector('#success').content.querySelector('.success');

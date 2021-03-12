@@ -1,7 +1,4 @@
 /* eslint-disable no-unused-vars */
-import {
-  getArray
-} from './data.js';
 
 const POPUP = document.querySelector('#card').content.querySelector('.popup');
 
