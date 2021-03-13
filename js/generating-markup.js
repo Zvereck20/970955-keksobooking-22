@@ -1,10 +1,6 @@
 /* eslint-disable no-unused-vars */
-import {
-  getArray
-} from './data.js';
 
 const POPUP = document.querySelector('#card').content.querySelector('.popup');
-const MAP_PLACE = document.querySelector('.map__canvas');
 
 // Создать список features
 
@@ -22,16 +18,15 @@ const createPhotoList = (photos) => {
     .join('')
 };
 
-
-const checkElements = (element, data, process) => {
-  data.length === 0 ?
-    (element.remove()) :
-    (element.innerHTML);
+const checkElements = (data, element, insertElement) => {
+  if (data.length === 0) {
+    element.remove();
+  } else {
+    element.innerHTML = insertElement(data);
+  }
 };
 
 // Создать объект
-
-const createPopup = getArray();
 
 const createPopupElement = (element) => {
   const POPUP_ELEMENT = POPUP.cloneNode(true);
@@ -40,19 +35,18 @@ const createPopupElement = (element) => {
   POPUP_ELEMENT.querySelector('.popup__text--address').textContent = element.offer.address;
   POPUP_ELEMENT.querySelector('.popup__text--price').textContent = `${element.offer.price} ₽/ночь`;
   POPUP_ELEMENT.querySelector('.popup__type').textContent = element.offer.type;
-  POPUP_ELEMENT.querySelector('.popup__text--capacity').textContent = `${element.offer.rooms} комнаты для ${element.offer.quests} гостей`;
+  POPUP_ELEMENT.querySelector('.popup__text--capacity').textContent = `${element.offer.rooms} комнаты для ${element.offer.guests} гостей`;
   POPUP_ELEMENT.querySelector('.popup__text--time').textContent = `Заезд после ${element.offer.checkin}, выезд до ${element.offer.checkout}`;
   const FEATURES = POPUP_ELEMENT.querySelector('.popup__features');
-  checkElements(FEATURES, element.offer.features, createFeaturesList);
+  FEATURES.innerHTML = createFeaturesList(element.offer.features);
   POPUP_ELEMENT.querySelector('.popup__description').textContent = element.offer.description;
   const PHOTOS = POPUP_ELEMENT.querySelector('.popup__photos');
-  checkElements(PHOTOS, element.offer.photos, createPhotoList);
+  PHOTOS.innerHTML = createPhotoList(element.offer.photos);
   POPUP_ELEMENT.querySelector('.popup__avatar').src = element.author.avatar;
 
   return POPUP_ELEMENT;
 };
 
 export {
-  createPopupElement,
-  createPopup
+  createPopupElement
 };
