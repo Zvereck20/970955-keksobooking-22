@@ -3,3 +3,4 @@ import './form.js';
 import './disabled.js';
 import './leaflet-map.js';
 import './api.js';
+import './filters.js';

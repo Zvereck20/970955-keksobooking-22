@@ -7,9 +7,14 @@ import {
 import {
   getData
 } from './api.js'
+// import {
+//   sortHousing
+// } from './filters.js';
 
 const ADDRRES_OF_COORDINATES = document.querySelector('#address');
 let LOUD_MAP = false;
+
+const POPUP_ELEMENT_COUNT = 10;
 
 // Создаем и отрисовываем карту
 
@@ -61,35 +66,48 @@ createMainMarker.on('moveend', (evt) => {
 
 
 getData((MARKERS) => {
-  MARKERS.forEach((element) => {
-    const lat = element.location.lat;
-    const lng = element.location.lng;
 
-    const createSecondaryMarkers = L.icon({
-      iconUrl: './img/pin.svg',
-      iconSize: [40, 40],
-      iconAnchor: [20, 40],
+  MARKERS
+    // .slice()
+    // .sort(sortHousing())
+    // .slice(0, POPUP_ELEMENT_COUNT)
+
+    .forEach((element) => {
+      const lat = element.location.lat;
+      const lng = element.location.lng;
+
+      const createSecondaryMarkers = L.icon({
+        iconUrl: './img/pin.svg',
+        iconSize: [40, 40],
+        iconAnchor: [20, 40],
+      });
+
+      const secondaryMarkers = L.marker({
+        lat,
+        lng,
+      }, {
+        createSecondaryMarkers,
+      });
+
+      secondaryMarkers
+        .addTo(createMap)
+        .bindPopup(
+          createPopupElement(element), {
+            keepInView: true,
+          },
+        );
     });
+});
 
-    const secondaryMarkers = L.marker({
-      lat,
-      lng,
-    }, {
-      createSecondaryMarkers,
-    });
-
-    secondaryMarkers
-      .addTo(createMap)
-      .bindPopup(
-        createPopupElement(element), {
-          keepInView: true,
-        },
-      );
+const resetMainMarkerPosition = () => {
+  createMainMarker.setLatLng({
+    lat: 35.6895,
+    lng: 139.69171,
   });
-})
+};
 
 export {
   LOUD_MAP,
-  // ADDRRES_OF_COORDINATES,
-  createMainMarker
+  ADDRRES_OF_COORDINATES,
+  resetMainMarkerPosition
 };
