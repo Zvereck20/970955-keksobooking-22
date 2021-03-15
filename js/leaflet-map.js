@@ -1,26 +1,15 @@
 /* eslint-disable indent */
 /* global L:readonly */
-
 import {
   createPopupElement
 } from './generating-markup.js';
-import {
-  getData
-} from './api.js'
-// import {
-//   sortHousing
-// } from './filters.js';
 
 const ADDRRES_OF_COORDINATES = document.querySelector('#address');
-let LOUD_MAP = false;
-
-const POPUP_ELEMENT_COUNT = 10;
 
 // Создаем и отрисовываем карту
 
 const createMap = L.map('map-canvas')
   .on('load', () => {
-    LOUD_MAP = true;
     ADDRRES_OF_COORDINATES.value = '35.68950, 139.69171';
   })
   .setView({
@@ -64,40 +53,33 @@ createMainMarker.on('moveend', (evt) => {
 
 // Показывает маркер и балун одного случайно сгенерированного обьявления
 
+const createSecondaryMarkers = (array) => {
+  array.forEach((element) => {
+    const lat = element.location.lat;
+    const lng = element.location.lng;
 
-getData((MARKERS) => {
-
-  MARKERS
-    // .slice()
-    // .sort(sortHousing())
-    // .slice(0, POPUP_ELEMENT_COUNT)
-
-    .forEach((element) => {
-      const lat = element.location.lat;
-      const lng = element.location.lng;
-
-      const createSecondaryMarkers = L.icon({
-        iconUrl: './img/pin.svg',
-        iconSize: [40, 40],
-        iconAnchor: [20, 40],
-      });
-
-      const secondaryMarkers = L.marker({
-        lat,
-        lng,
-      }, {
-        createSecondaryMarkers,
-      });
-
-      secondaryMarkers
-        .addTo(createMap)
-        .bindPopup(
-          createPopupElement(element), {
-            keepInView: true,
-          },
-        );
+    const createSecondaryMarkers = L.icon({
+      iconUrl: './img/pin.svg',
+      iconSize: [40, 40],
+      iconAnchor: [20, 40],
     });
-});
+
+    const secondaryMarkers = L.marker({
+      lat,
+      lng,
+    }, {
+      createSecondaryMarkers,
+    });
+
+    secondaryMarkers
+      .addTo(createMap)
+      .bindPopup(
+        createPopupElement(element), {
+          keepInView: true,
+        },
+      );
+  });
+}
 
 const resetMainMarkerPosition = () => {
   createMainMarker.setLatLng({
@@ -107,7 +89,7 @@ const resetMainMarkerPosition = () => {
 };
 
 export {
-  LOUD_MAP,
   ADDRRES_OF_COORDINATES,
-  resetMainMarkerPosition
+  resetMainMarkerPosition,
+  createSecondaryMarkers
 };
