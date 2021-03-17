@@ -1,5 +1,6 @@
 /* eslint-disable indent */
 /* global L:readonly */
+// import { create } from 'browser-sync';
 import {
   createPopupElement
 } from './generating-markup.js';
@@ -51,14 +52,14 @@ createMainMarker.on('moveend', (evt) => {
   ADDRRES_OF_COORDINATES.setAttribute('value', `${COORDINATES.lat.toFixed(5)}, ${COORDINATES.lng.toFixed(5)}`);
 });
 
-// Показывает маркер и балун одного случайно сгенерированного обьявления
 
 const createSecondaryMarkers = (array) => {
+
   array.forEach((element) => {
     const lat = element.location.lat;
     const lng = element.location.lng;
 
-    const createSecondaryMarkers = L.icon({
+    const createSecondaryMarkersIcon = L.icon({
       iconUrl: './img/pin.svg',
       iconSize: [40, 40],
       iconAnchor: [20, 40],
@@ -68,7 +69,7 @@ const createSecondaryMarkers = (array) => {
       lat,
       lng,
     }, {
-      createSecondaryMarkers,
+      createSecondaryMarkersIcon,
     });
 
     secondaryMarkers
@@ -79,7 +80,8 @@ const createSecondaryMarkers = (array) => {
         },
       );
   });
-}
+};
+
 
 const resetMainMarkerPosition = () => {
   createMainMarker.setLatLng({

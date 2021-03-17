@@ -15,17 +15,15 @@ import {
   setMapActive
 } from './disabled.js';
 import {
-  setData,
-  setTypeChange
+  setData
 } from './filters.js';
 
 const POPUP_ELEMENT_COUNT = 10;
 
 getData().then((result) => {
-  setMapActive();
   result.slice(0, POPUP_ELEMENT_COUNT);
-  setData(result);
-  console.log(setData(result));
+  // console.log('data', result.slice());
   createSecondaryMarkers(result);
-  setTypeChange(() => createSecondaryMarkers(result));
+  setData(result);
+  setMapActive();
 })
