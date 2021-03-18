@@ -9,7 +9,7 @@ const HOUSING_ROOMS = document.querySelector('#housing-rooms');
 const HOUSING_QUESTS = document.querySelector('#housing-guests');
 const HOUSING_FEATURES = document.querySelector('#housing-features');
 
-const mom = HOUSING_FEATURES.querySelectorAll('.map__checkbox');
+const HOUSING_FEATURES_COLLECTIONS = HOUSING_FEATURES.querySelectorAll('.map__checkbox');
 
 const ANY_VALUE = 'any';
 
@@ -84,7 +84,7 @@ const setData = (collections) => {
     const TOTAL_PRICE = addPriceValue(TOTAL_HOUSING);
     const TOTAL_ROOMS = addRoomsValue(TOTAL_PRICE);
     const TOTAL_QUESTS = addQuestsValue(TOTAL_ROOMS);
-    const TOTAL_FEATURES = addFeatures(mom, TOTAL_QUESTS);
+    const TOTAL_FEATURES = addFeatures(HOUSING_FEATURES_COLLECTIONS, TOTAL_QUESTS);
 
     createSecondaryMarkers(TOTAL_FEATURES);
   });
