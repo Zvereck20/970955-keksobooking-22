@@ -1,116 +1,94 @@
-/* eslint-disable no-console */
 import {
   createSecondaryMarkers
 } from './leaflet-map.js';
-
 const FIlTERS = document.querySelector('.map__filters');
 
 const HOUSING_TYPE = document.querySelector('#housing-type');
 const HOUSING_PRICE = document.querySelector('#housing-price');
 const HOUSING_ROOMS = document.querySelector('#housing-rooms');
-const HOUSING_QUESTS = document.querySelector('#housing-quests');
-// const HOUSING_FEATURES = document.querySelector('#housing-features');
+const HOUSING_QUESTS = document.querySelector('#housing-guests');
+const HOUSING_FEATURES = document.querySelector('#housing-features');
+
+const mom = HOUSING_FEATURES.querySelectorAll('.map__checkbox');
+
+const ANY_VALUE = 'any';
 
 const LOW = 10000;
 const MIDDLE = 50000;
 
-// Функция фильтра
+const Values = {
+  LOW: 'low',
+  MIDDLE: 'middle',
+  HIGH: 'high',
+};
 
-const addPrice = (incomingArray, returnArray) => {
-  if (HOUSING_PRICE.value === 'low') {
-    incomingArray.forEach((element) => {
-      if (element.offer.price < LOW) {
-        returnArray.push(element);
-      }
-
-    });
-  } else if (HOUSING_PRICE.value === 'middle') {
-    incomingArray.forEach((element) => {
-      if ((element.offer.price >= LOW) && (element.offer.price < MIDDLE)) {
-        returnArray.push(element);
-      }
-
-    });
-  } else if (HOUSING_PRICE.value === 'high') {
-    incomingArray.forEach((element) => {
-      if (element.offer.price >= MIDDLE) {
-        returnArray.push(element);
-      }
-
-    });
+const addHousingValue = (collections) => {
+  if (HOUSING_TYPE.value === ANY_VALUE) {
+    return collections;
+  } else {
+    return collections.filter((element) => element.offer.type === HOUSING_TYPE.value);
   }
-  // } else if (HOUSING_PRICE.value === 'any') {
-  //   returnArray = incomingArray;
-  // }
-
-
-  incomingArray.length = 0;
-
-  return returnArray, incomingArray;
 };
 
-const addRooms = (incomingArray, returnArray) => {
-
-  incomingArray.forEach((element) => {
-    if (element.offer.rooms == HOUSING_ROOMS.value) {
-      returnArray.push(element);
-    }
-  });
-
-  incomingArray.length = 0;
-
-  return returnArray, incomingArray;
-};
-
-const addQuests = (incomingArray, returnArray) => {
-
-  incomingArray.forEach((element) => {
-    if (element.offer.guests == HOUSING_QUESTS.value) {
-      returnArray.push(element);
-    }
-  });
-
-  incomingArray.length = 0;
-
-  return returnArray, incomingArray;
-};
-
-//  1. собираем данные пользователя
-//  2. выбираем подходящие данные из collection и записываем в новый массив
-//  3. отрисовываем метки на основе нового массива данных / createSecondaryMarkers(array)
-// };
-
-// Обработчик фильтра
-
-const setData = (collection) => {
-  // data = collection;
-  FIlTERS.addEventListener('change', () => {
-    let mem = [];
-    let rom = [];
-    collection.forEach((element) => {
-      if (element.offer.type === HOUSING_TYPE.value) {
-        mem.push(element);
+const addPriceValue = (collections) => {
+  if (HOUSING_PRICE.value === Values.LOW) {
+    return collections.filter((element) => element.offer.price < LOW);
+  } else if (HOUSING_PRICE.value === Values.MIDDLE) {
+    return collections.filter((element) => {
+      if ((element.offer.price >= LOW) && (element.offer.price < MIDDLE)) {
+        return element.offer.price;
       }
-      // } mem = collection;
-    });
-    // createSecondaryMarkers(mem);
-    addPrice(mem, rom);
-    addRooms(rom, mem);
-    // addQuests(mem, rom);
-
-    console.log('mem', mem);
-    console.log('rom', rom);
-
-
-
-    //     // addRooms(returnArray, returnArray);
-    //   } else {
-    //     addPrice(collection, rom);
-    //   }
-    // })
-  })
+    })
+  } else if (HOUSING_PRICE.value === Values.HIGH) {
+    return collections.filter((element) => element.offer.price >= MIDDLE);
+  } else {
+    return collections;
+  }
 };
 
+const addRoomsValue = (collections) => {
+  if (HOUSING_ROOMS.value === ANY_VALUE) {
+    return collections;
+  } else {
+    return collections.filter((element) => element.offer.rooms == HOUSING_ROOMS.value);
+  }
+};
+
+const addQuestsValue = (collections) => {
+  if (HOUSING_QUESTS.value === ANY_VALUE) {
+    return collections;
+  } else {
+    return collections.filter((element) => element.offer.guests == HOUSING_QUESTS.value);
+  }
+};
+
+const addFeatures = (featuresCollection, collections) => {
+  const result = [];
+  const checkedFeatures = Array.from(featuresCollection)
+    .map((i) => i.checked && i.value)
+    .filter(Boolean);
+  if (!checkedFeatures.length) {
+    return collections;
+  }
+  collections.forEach((c) => {
+    checkedFeatures.every((i) => c.offer.features.indexOf(i) !== -1) &&
+      result.push(c);
+  });
+  return result;
+};
+
+const setData = (collections) => {
+
+  FIlTERS.addEventListener('change', () => {
+    const TOTAL_HOUSING = addHousingValue(collections);
+    const TOTAL_PRICE = addPriceValue(TOTAL_HOUSING);
+    const TOTAL_ROOMS = addRoomsValue(TOTAL_PRICE);
+    const TOTAL_QUESTS = addQuestsValue(TOTAL_ROOMS);
+    const TOTAL_FEATURES = addFeatures(mom, TOTAL_QUESTS);
+
+    createSecondaryMarkers(TOTAL_FEATURES);
+  });
+};
 
 export {
   setData

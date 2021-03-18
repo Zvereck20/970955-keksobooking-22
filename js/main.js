@@ -18,11 +18,7 @@ import {
   setData
 } from './filters.js';
 
-const POPUP_ELEMENT_COUNT = 10;
-
 getData().then((result) => {
-  result.slice(0, POPUP_ELEMENT_COUNT);
-  // console.log('data', result.slice());
   createSecondaryMarkers(result);
   setData(result);
   setMapActive();

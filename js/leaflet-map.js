@@ -7,6 +7,8 @@ import {
 
 const ADDRRES_OF_COORDINATES = document.querySelector('#address');
 
+const POPUP_ELEMENT_COUNT = 10;
+
 // Создаем и отрисовываем карту
 
 const createMap = L.map('map-canvas')
@@ -52,10 +54,13 @@ createMainMarker.on('moveend', (evt) => {
   ADDRRES_OF_COORDINATES.setAttribute('value', `${COORDINATES.lat.toFixed(5)}, ${COORDINATES.lng.toFixed(5)}`);
 });
 
+let markersLayer = new L.LayerGroup();
 
 const createSecondaryMarkers = (array) => {
 
-  array.forEach((element) => {
+  const DISPLAY_ARRAY = array.slice(0, POPUP_ELEMENT_COUNT);
+  clearAds();
+  DISPLAY_ARRAY.forEach((element) => {
     const lat = element.location.lat;
     const lng = element.location.lng;
 
@@ -71,17 +76,17 @@ const createSecondaryMarkers = (array) => {
     }, {
       createSecondaryMarkersIcon,
     });
-
-    secondaryMarkers
-      .addTo(createMap)
-      .bindPopup(
-        createPopupElement(element), {
-          keepInView: true,
-        },
-      );
+    markersLayer.addLayer(secondaryMarkers);
+    secondaryMarkers.bindPopup(createPopupElement(element), {
+      keepInView: true,
+    });
   });
+  markersLayer.addTo(createMap);
 };
 
+const clearAds = () => {
+  markersLayer.clearLayers();
+};
 
 const resetMainMarkerPosition = () => {
   createMainMarker.setLatLng({
