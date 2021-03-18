@@ -4,8 +4,8 @@ import {
 
 // Загрузка данных
 
-const getData = (onSucces) => {
-  fetch('https://22.javascript.pages.academy/keksobooking/data')
+const getData = () => {
+  return fetch('https://22.javascript.pages.academy/keksobooking/data')
     .then((response) => {
       if (response.ok) {
         return response.json();
@@ -13,7 +13,7 @@ const getData = (onSucces) => {
       throw new Error('Не удалось загрузить данные с сервера!');
     })
     .then((array) => {
-      onSucces(array);
+      return array;
     })
     .catch(() => {
       loadingError('Что-то пошло не так, попробуйте перезагрузить страницу!');

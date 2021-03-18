@@ -1,21 +1,18 @@
 /* eslint-disable indent */
 /* global L:readonly */
-
+// import { create } from 'browser-sync';
 import {
   createPopupElement
 } from './generating-markup.js';
-import {
-  getData
-} from './api.js'
 
 const ADDRRES_OF_COORDINATES = document.querySelector('#address');
-let LOUD_MAP = false;
+
+const POPUP_ELEMENT_COUNT = 10;
 
 // Создаем и отрисовываем карту
 
 const createMap = L.map('map-canvas')
   .on('load', () => {
-    LOUD_MAP = true;
     ADDRRES_OF_COORDINATES.value = '35.68950, 139.69171';
   })
   .setView({
@@ -57,15 +54,17 @@ createMainMarker.on('moveend', (evt) => {
   ADDRRES_OF_COORDINATES.setAttribute('value', `${COORDINATES.lat.toFixed(5)}, ${COORDINATES.lng.toFixed(5)}`);
 });
 
-// Показывает маркер и балун одного случайно сгенерированного обьявления
+let markersLayer = new L.LayerGroup();
 
+const createSecondaryMarkers = (array) => {
 
-getData((MARKERS) => {
-  MARKERS.forEach((element) => {
+  const DISPLAY_ARRAY = array.slice(0, POPUP_ELEMENT_COUNT);
+  clearAds();
+  DISPLAY_ARRAY.forEach((element) => {
     const lat = element.location.lat;
     const lng = element.location.lng;
 
-    const createSecondaryMarkers = L.icon({
+    const createSecondaryMarkersIcon = L.icon({
       iconUrl: './img/pin.svg',
       iconSize: [40, 40],
       iconAnchor: [20, 40],
@@ -75,21 +74,29 @@ getData((MARKERS) => {
       lat,
       lng,
     }, {
-      createSecondaryMarkers,
+      createSecondaryMarkersIcon,
     });
-
-    secondaryMarkers
-      .addTo(createMap)
-      .bindPopup(
-        createPopupElement(element), {
-          keepInView: true,
-        },
-      );
+    markersLayer.addLayer(secondaryMarkers);
+    secondaryMarkers.bindPopup(createPopupElement(element), {
+      keepInView: true,
+    });
   });
-})
+  markersLayer.addTo(createMap);
+};
+
+const clearAds = () => {
+  markersLayer.clearLayers();
+};
+
+const resetMainMarkerPosition = () => {
+  createMainMarker.setLatLng({
+    lat: 35.6895,
+    lng: 139.69171,
+  });
+};
 
 export {
-  LOUD_MAP,
-  // ADDRRES_OF_COORDINATES,
-  createMainMarker
+  ADDRRES_OF_COORDINATES,
+  resetMainMarkerPosition,
+  createSecondaryMarkers
 };

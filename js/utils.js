@@ -2,6 +2,7 @@
 /* eslint-disable no-undef */
 
 // Функция возвращает целое число
+const TIMEOUT_TIME = 5000;
 
 let getRandomnInteger = (minNumber, maxNumber) => {
   if (minNumber >= maxNumber) {
@@ -48,7 +49,7 @@ const loadingError = (message) => {
 
   setTimeout(() => {
     alertContainer.remove();
-  }, 5000);
+  }, TIMEOUT_TIME);
 };
 
 export {
