@@ -1,3 +1,4 @@
+/* global _:readonly */
 import {
   createSecondaryMarkers
 } from './leaflet-map.js';
@@ -21,6 +22,8 @@ const Values = {
   MIDDLE: 'middle',
   HIGH: 'high',
 };
+
+const RERENDER_DELAY = 500;
 
 const addHousingValue = (collections) => {
   if (HOUSING_TYPE.value === ANY_VALUE) {
@@ -86,9 +89,12 @@ const setData = (collections) => {
     const TOTAL_QUESTS = addQuestsValue(TOTAL_ROOMS);
     const TOTAL_FEATURES = addFeatures(HOUSING_FEATURES_COLLECTIONS, TOTAL_QUESTS);
 
-    createSecondaryMarkers(TOTAL_FEATURES);
+
+    _.debounce(createSecondaryMarkers(TOTAL_FEATURES), RERENDER_DELAY);
   });
 };
+
+console.log(setData)
 
 export {
   setData
