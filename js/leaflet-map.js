@@ -1,6 +1,4 @@
-/* eslint-disable indent */
 /* global L:readonly */
-// import { create } from 'browser-sync';
 import {
   createPopupElement
 } from './generating-markup.js';

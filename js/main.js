@@ -4,6 +4,7 @@ import './disabled.js';
 import './leaflet-map.js';
 import './api.js';
 import './filters.js';
+import './avatar.js';
 
 import {
   getData
