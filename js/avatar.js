@@ -1,13 +1,18 @@
-const lable = document.querySelector('.ad-form-header__drop-zone');
-const userChooser = document.querySelector('.ad-form-header__input');
+// Фотография для карты
+const AVATAR_IMG = document.querySelector('.ad-form-header__input');
 const PREVIEW = document.querySelector('.ad-form-header__preview');
+const PREVIEW_IMG = PREVIEW.querySelector('img');
+
+// Фотография жилья
+// const HOUSING_IMG = document.querySelector('.ad-form__input');
+// const HOUSING_PHOTO = document.querySelector('.ad-form__photo');
 
 const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 
-lable.addEventListener('click', (evt) => {
-  // evt.preventDefault();
-  const FILE = userChooser.files[0];
+AVATAR_IMG.addEventListener('change', () => {
+  const FILE = AVATAR_IMG.files[0];
   const fileName =  FILE.name.toLowerCase();
+
 
   const matches = FILE_TYPES.some((it) => {
     return fileName.endsWith(it);
@@ -17,11 +22,9 @@ lable.addEventListener('click', (evt) => {
     const READER = new FileReader();
 
     READER.addEventListener('load', () => {
-      PREVIEW.src = READER.result;
+      PREVIEW_IMG.src = READER.result;
     });
 
     READER.readAsDataURL(FILE);
   }
-
-  console.log('win');
-})
+});
