@@ -22,6 +22,7 @@ const NUMBER_OF_ROOMS = document.querySelector('#room_number');
 const NUMBER_OF_SEATS = document.querySelector('#capacity');
 
 const ORDER_FORM = document.querySelector('.ad-form');
+// const button = document.querySelector('.ad-form__submit');
 
 const TIMEOUT_TIME = 3000;
 

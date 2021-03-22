@@ -1,7 +1,4 @@
 /* eslint-disable no-unused-vars */
-// import {
-//   sortHousing
-// } from './filters.js'
 
 const POPUP = document.querySelector('#card').content.querySelector('.popup');
 
@@ -32,11 +29,6 @@ const checkElements = (data, element) => {
 // Создать объект
 
 const createPopupElement = (element) => {
-  // element.slice();
-  // element.sort(sortHousing);
-  // element.slice(0, POPUP_ELEMENT_COUNT);
-
-
   const POPUP_ELEMENT = POPUP.cloneNode(true);
 
   POPUP_ELEMENT.querySelector('.popup__title').textContent = element.offer.title;
@@ -54,25 +46,6 @@ const createPopupElement = (element) => {
 
   return POPUP_ELEMENT;
 };
-
-// const createPopupElement = (element) => {
-//   const POPUP_ELEMENT = POPUP.cloneNode(true);
-
-//   POPUP_ELEMENT.querySelector('.popup__title').textContent = element.offer.title;
-//   POPUP_ELEMENT.querySelector('.popup__text--address').textContent = element.offer.address;
-//   POPUP_ELEMENT.querySelector('.popup__text--price').textContent = `${element.offer.price} ₽/ночь`;
-//   POPUP_ELEMENT.querySelector('.popup__type').textContent = element.offer.type;
-//   POPUP_ELEMENT.querySelector('.popup__text--capacity').textContent = `${element.offer.rooms} комнаты для ${element.offer.guests} гостей`;
-//   POPUP_ELEMENT.querySelector('.popup__text--time').textContent = `Заезд после ${element.offer.checkin}, выезд до ${element.offer.checkout}`;
-//   const FEATURES = POPUP_ELEMENT.querySelector('.popup__features');
-//   FEATURES.innerHTML = createFeaturesList(element.offer.features);
-//   POPUP_ELEMENT.querySelector('.popup__description').textContent = element.offer.description;
-//   const PHOTOS = POPUP_ELEMENT.querySelector('.popup__photos');
-//   PHOTOS.innerHTML = createPhotoList(element.offer.photos);
-//   POPUP_ELEMENT.querySelector('.popup__avatar').src = element.author.avatar;
-
-//   return POPUP_ELEMENT;
-// };
 
 export {
   createPopupElement

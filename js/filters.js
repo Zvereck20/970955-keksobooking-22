@@ -1,3 +1,4 @@
+/* global _:readonly */
 import {
   createSecondaryMarkers
 } from './leaflet-map.js';
@@ -21,6 +22,8 @@ const Values = {
   MIDDLE: 'middle',
   HIGH: 'high',
 };
+
+const RERENDER_DELAY = 500;
 
 const addHousingValue = (collections) => {
   if (HOUSING_TYPE.value === ANY_VALUE) {
@@ -79,7 +82,7 @@ const addFeatures = (featuresCollection, collections) => {
 
 const setData = (collections) => {
 
-  FIlTERS.addEventListener('change', () => {
+  FIlTERS.addEventListener('change', _.debounce(() => {
     const TOTAL_HOUSING = addHousingValue(collections);
     const TOTAL_PRICE = addPriceValue(TOTAL_HOUSING);
     const TOTAL_ROOMS = addRoomsValue(TOTAL_PRICE);
@@ -87,7 +90,7 @@ const setData = (collections) => {
     const TOTAL_FEATURES = addFeatures(HOUSING_FEATURES_COLLECTIONS, TOTAL_QUESTS);
 
     createSecondaryMarkers(TOTAL_FEATURES);
-  });
+  }, RERENDER_DELAY));
 };
 
 export {
