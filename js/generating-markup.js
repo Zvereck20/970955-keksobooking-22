@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-
 const POPUP = document.querySelector('#card').content.querySelector('.popup');
 
 // Создать список features
@@ -16,14 +14,6 @@ const createPhotoList = (photos) => {
   return photos
     .map((photo) => `<img src="${photo}" class="popup__photo" width="45" height="40" alt="Фотография жилья">`)
     .join('')
-};
-
-const checkElements = (data, element) => {
-  if (data.length === 0) {
-    element.remove();
-  } else {
-    element.innerHTML = createPhotoList(data);
-  }
 };
 
 // Создать объект

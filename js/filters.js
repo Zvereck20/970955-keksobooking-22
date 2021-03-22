@@ -53,7 +53,7 @@ const addRoomsValue = (collections) => {
   if (HOUSING_ROOMS.value === ANY_VALUE) {
     return collections;
   } else {
-    return collections.filter((element) => element.offer.rooms == HOUSING_ROOMS.value);
+    return collections.filter((element) => element.offer.rooms === parseInt(HOUSING_ROOMS.value));
   }
 };
 
@@ -61,7 +61,7 @@ const addQuestsValue = (collections) => {
   if (HOUSING_QUESTS.value === ANY_VALUE) {
     return collections;
   } else {
-    return collections.filter((element) => element.offer.guests == HOUSING_QUESTS.value);
+    return collections.filter((element) => element.offer.guests === parseInt(HOUSING_QUESTS.value));
   }
 };
 
