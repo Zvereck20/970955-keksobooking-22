@@ -7,9 +7,9 @@ const MAP_CLASS = MAP.className;
 const addClass = (object, className, tag) => {
   object.classList.add(`${className}--disabled`);
 
-  const FIELDSET = object.querySelectorAll(tag);
+  const fieldset = object.querySelectorAll(tag);
 
-  FIELDSET.forEach(element => {
+  fieldset.forEach(element => {
     element.setAttribute('disabled', '');
   });
 
@@ -18,11 +18,10 @@ const addClass = (object, className, tag) => {
 
 const removeClass = (object, className, tag) => {
   object.classList.remove(`${className}--disabled`);
-  // object.classList.toggle(`${CLASS_NAME}--disabled`, false)
 
-  const FIELDSET = object.querySelectorAll(tag);
+  const fieldset = object.querySelectorAll(tag);
 
-  FIELDSET.forEach(element => {
+  fieldset.forEach(element => {
     element.removeAttribute('disabled', '');
   });
 

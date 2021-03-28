@@ -16,11 +16,16 @@ import {
   setMapActive
 } from './disabled.js';
 import {
-  setData
+  setData,
+  setCollections
 } from './filters.js';
+
+
+
 
 getData().then((result) => {
   createSecondaryMarkers(result);
   setData(result);
   setMapActive();
-})
+  setCollections(result);
+});

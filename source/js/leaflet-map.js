@@ -47,23 +47,23 @@ createMainMarker.addTo(createMap);
 // Добавляем обработчик события на главный мракер для отображения координат
 
 createMainMarker.on('moveend', (evt) => {
-  const COORDINATES = evt.target.getLatLng();
-  ADDRRES_OF_COORDINATES.value = `${COORDINATES.lat.toFixed(5)}, ${COORDINATES.lng.toFixed(5)}`;
-  ADDRRES_OF_COORDINATES.setAttribute('value', `${COORDINATES.lat.toFixed(5)}, ${COORDINATES.lng.toFixed(5)}`);
+  const coordinates = evt.target.getLatLng();
+  ADDRRES_OF_COORDINATES.value = `${coordinates.lat.toFixed(5)}, ${coordinates.lng.toFixed(5)}`;
+  ADDRRES_OF_COORDINATES.setAttribute('value', `${coordinates.lat.toFixed(5)}, ${coordinates.lng.toFixed(5)}`);
 });
 
 let markersLayer = new L.LayerGroup();
 
 const createSecondaryMarkers = (array) => {
 
-  const DISPLAY_ARRAY = array.slice(0, POPUP_ELEMENT_COUNT);
+  const displayArray = array.slice(0, POPUP_ELEMENT_COUNT);
   clearAds();
-  DISPLAY_ARRAY.forEach((element) => {
+  displayArray.forEach((element) => {
     const lat = element.location.lat;
     const lng = element.location.lng;
 
     const createSecondaryMarkersIcon = L.icon({
-      iconUrl: './img/pin.svg',
+      iconUrl: 'img/pin.svg',
       iconSize: [40, 40],
       iconAnchor: [20, 40],
     });

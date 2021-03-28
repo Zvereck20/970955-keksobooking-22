@@ -2,11 +2,18 @@
 // /* global L:readonly */
 import {
   sendData
-} from './api.js'
+} from './api.js';
 import {
   ADDRRES_OF_COORDINATES,
   resetMainMarkerPosition
-} from './leaflet-map.js'
+} from './leaflet-map.js';
+import {
+  cleanFilters
+} from './filters.js';
+import {
+  PREVIEW_IMG,
+  removeImage
+} from './avatar.js';
 
 // Изменение значений полей "Тип жилья" и "Цена за ночь"
 
@@ -22,7 +29,6 @@ const NUMBER_OF_ROOMS = document.querySelector('#room_number');
 const NUMBER_OF_SEATS = document.querySelector('#capacity');
 
 const ORDER_FORM = document.querySelector('.ad-form');
-// const button = document.querySelector('.ad-form__submit');
 
 const TIMEOUT_TIME = 3000;
 
@@ -68,26 +74,39 @@ const getAttribute = (object) => {
   return object
 };
 
+const checkingSelected = (value) => {
+  const optionsValue = value.options;
+
+  for (let i = 0; i<= optionsValue.length -1; i++) {
+
+    if (optionsValue[i].getAttribute('selected') !== '') {
+      optionsValue[i].setAttribute('disabled', '');
+    }
+  }
+};
+
+checkingSelected(NUMBER_OF_SEATS);
+
 const checkingValidity = (evt, idValue, secondValue) => {
+  const optionsValue = secondValue.options;
+  getAttribute(optionsValue);
   if (evt.target.id === 'room_number') {
-    const INDEX_VALUE = idValue.selectedIndex;
-    const OPTIONS_VALUE = secondValue.options;
-    getAttribute(OPTIONS_VALUE);
-    if (INDEX_VALUE === Types.ZERO) {
+    const indexValue = idValue.selectedIndex;
+    if (indexValue === Types.ZERO) {
       secondValue.selectedIndex = Types.SECOND;
-      OPTIONS_VALUE[2].removeAttribute('disabled');
-    } else if (INDEX_VALUE === Types.FIRST) {
+      optionsValue[2].removeAttribute('disabled');
+    } else if (indexValue === Types.FIRST) {
       secondValue.selectedIndex = Types.FIRST;
-      OPTIONS_VALUE[1].removeAttribute('disabled');
-      OPTIONS_VALUE[2].removeAttribute('disabled');
-    } else if (INDEX_VALUE === Types.SECOND) {
+      optionsValue[1].removeAttribute('disabled');
+      optionsValue[2].removeAttribute('disabled');
+    } else if (indexValue === Types.SECOND) {
       secondValue.selectedIndex = Types.ZERO;
-      OPTIONS_VALUE[0].removeAttribute('disabled');
-      OPTIONS_VALUE[1].removeAttribute('disabled');
-      OPTIONS_VALUE[2].removeAttribute('disabled');
-    } else if (INDEX_VALUE === Types.THIRD) {
+      optionsValue[0].removeAttribute('disabled');
+      optionsValue[1].removeAttribute('disabled');
+      optionsValue[2].removeAttribute('disabled');
+    } else if (indexValue === Types.THIRD) {
       secondValue.selectedIndex = Types.THIRD;
-      OPTIONS_VALUE[3].removeAttribute('disabled');
+      optionsValue[3].removeAttribute('disabled');
     }
   }
 };
@@ -99,8 +118,8 @@ NUMBER_OF_ROOMS.addEventListener('change', (evt) => {
 // Дествия при отправки формы
 
 const cleanPage = () => {
-  const TITLE = document.querySelector('#title');
-  TITLE.value = '';
+  const title = document.querySelector('#title');
+  title.value = '';
   TYPE_OF_HOUSING.selectedIndex = Types.FIRST;
   TYPE_OF_PRICE.placeholder = PRICE[1];
   TYPE_OF_PRICE.value = '';
@@ -108,36 +127,48 @@ const cleanPage = () => {
   TIME_OF_OUT.selectedIndex = Types.ZERO;
   NUMBER_OF_ROOMS.selectedIndex = Types.ZERO;
   NUMBER_OF_SEATS.selectedIndex = Types.SECOND;
-  const FEATURE_CHECKBOX = document.querySelectorAll('.feature__checkbox');
-  FEATURE_CHECKBOX.forEach((element) => {
+  const featureCheckbox = document.querySelectorAll('.feature__checkbox');
+  featureCheckbox.forEach((element) => {
     element.checked = false;
   });
-  const DESCRRIPTION = document.querySelector('#description');
-  DESCRRIPTION.value = '';
+  const description = document.querySelector('#description');
+  description.value = '';
   resetMainMarkerPosition();
   ADDRRES_OF_COORDINATES.value = '35.68950, 139.69171';
+  PREVIEW_IMG.src = 'img/muffin-grey.svg'
+  removeImage();
+
 };
 
 const onFail = () => {
-  const ERROR = document.querySelector('#error').content.querySelector('.error');
-  const ERROR_ELEMENT = ERROR.cloneNode(true);
-  document.body.append(ERROR_ELEMENT);
+  const error = document.querySelector('#error').content.querySelector('.error');
+  const errorElement = error.cloneNode(true);
+  const mainDocument = document.body;
+  mainDocument.append(errorElement);
 
-  const ERROR_BUTTON = ERROR_ELEMENT.querySelector('.error__button');
+  const ERROR_BUTTON = errorElement.querySelector('.error__button');
 
   ERROR_BUTTON.addEventListener('click', () => {
-    document.body.removeChild(ERROR_ELEMENT);
+    mainDocument.removeChild(errorElement);
   });
+
+  mainDocument.addEventListener('keydown', (evt) => {
+    if (evt.key === ('Escape' || 'Esc')) {
+      mainDocument.removeChild(errorElement);
+    }
+  })
 };
 
+
 const sentSuccessfully = () => {
-  const SUCCESS = document.querySelector('#success').content.querySelector('.success');
-  const SUCCESS_ELEMENT = SUCCESS.cloneNode(true);
-  document.body.append(SUCCESS_ELEMENT);
+  const success = document.querySelector('#success').content.querySelector('.success');
+  const successElement = success.cloneNode(true);
+  document.body.append(successElement);
   cleanPage();
+  cleanFilters();
 
   setTimeout(() => {
-    SUCCESS_ELEMENT.remove();
+    successElement.remove();
   }, TIMEOUT_TIME);
 };
 
@@ -155,6 +186,6 @@ ORDER_FORM.addEventListener('submit', (evt) => {
 
 RESET_BUTTON.addEventListener('click', (evt) => {
   evt.preventDefault();
-
   cleanPage();
+  cleanFilters();
 })
