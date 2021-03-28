@@ -14,11 +14,11 @@ const ANY_VALUE = 'any';
 
 const RENTS_MAX = 10;
 
-let rem = [];
+let dataCollection = [];
 
 const setCollections = (data) => {
-  rem = data;
-  return rem;
+  dataCollection = data;
+  return dataCollection;
 };
 
 const cleanFilters = () => {
@@ -29,7 +29,7 @@ const cleanFilters = () => {
   HOUSING_FEATURES_COLLECTIONS.forEach((element) => {
     element.checked = false;
   });
-  createSecondaryMarkers(rem);
+  createSecondaryMarkers(dataCollection);
 }
 
 const LOW = 10000;
